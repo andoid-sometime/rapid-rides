@@ -69,9 +69,7 @@ app.post('/chargeForCookie', async (request, response) => {
     
     Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors;
     
-    response.status(400).send({
-              errorMessage: Messages
-          })
+   
 
     const { errors } = (JSON.parse(e.response.text));
 
@@ -107,8 +105,9 @@ app.post('/chargeForCookie', async (request, response) => {
           })
           break;
         default:
+         
           response.status(400).send({
-              errorMessage: res +"Payment error. Please contact support if issue persists."
+              errorMessage: Messages +"Payment error. Please contact support if issue persists."
           })
           break;
     }
