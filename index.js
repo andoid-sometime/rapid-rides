@@ -33,11 +33,17 @@ app.post('/chargeForCookie', async (request, response) => {
     order: {
       line_items: [
         {
-          name: "Cookie 🍪",
-          quantity: "1",
+         // name: "Cookie 🍪",
+         //quantity: "1",
+         //  base_price_money: {
+         //  amount: 100,
+         //  currency: "USD"
+         // }
+          name:requestBody.name,
+          quantity:"1",
           base_price_money: {
-            amount: 100,
-            currency: "USD"
+          amount: requestBody.amount,
+          currency: "USD"
           }
         }
       ]
