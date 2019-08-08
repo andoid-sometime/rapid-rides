@@ -107,7 +107,7 @@ app.post('/chargeForCookie', async (request, response) => {
         default:
          
           response.status(400).send({
-              errorMessage: JSON.parse(e.response.text)
+              errorMessage: JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)
                 +"Payment error. Please contact support if issue persists."
           })
           break;
