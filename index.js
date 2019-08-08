@@ -67,7 +67,7 @@ app.post('/chargeForCookie', async (request, response) => {
     console.log(
       `[Error] Status:${e.status}, Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)}`);
     
-    Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors;
+  //  Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors;
     
    
 
@@ -107,7 +107,7 @@ app.post('/chargeForCookie', async (request, response) => {
         default:
          
           response.status(400).send({
-              errorMessage: JSON.stringify((JSON.parse(e.response.text)).errors
+              errorMessage: {JSON.stringify((JSON.parse(e.response.text)).errors}
                 +"Payment error. Please contact support if issue persists."
           })
           break;
