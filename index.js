@@ -66,6 +66,12 @@ app.post('/chargeForCookie', async (request, response) => {
     delete e.response.req._headers;
     console.log(
       `[Error] Status:${e.status}, Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors, null, 2)}`);
+    
+    Messages: ${JSON.stringify((JSON.parse(e.response.text)).errors;
+    
+    response.status(400).send({
+              errorMessage: Messages
+          })
 
     const { errors } = (JSON.parse(e.response.text));
 
