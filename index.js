@@ -1,3 +1,4 @@
+var res='';
 const express = require('express');
 const app = express();
 const SquareConnect = require('square-connect');
@@ -15,12 +16,14 @@ app.use(bodyParser.json());
 
 let oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = process.env.ACCESS_TOKEN;
+res +=' Token:'+oauth2.accessToken;
 
 const transactionsApi = new TransactionsApi();
 const ordersApi = new OrdersApi();
 const locationsApi = new LocationsApi();
 
 app.post('/chargeForCookie', async (request, response) => {
+  res +=' request.body:'+request.body;
   const requestBody = request.body;
   const locations = await locationsApi.listLocations();
   const locationId = locations.locations[0].id;
@@ -42,14 +45,12 @@ app.post('/chargeForCookie', async (request, response) => {
   }
 
   const order = await ordersApi.createOrder(locationId, createOrderRequest);
-
+res +=JSON.stringyfy(order);
   try {
     const chargeBody = {
       "idempotency_key": crypto.randomBytes(12).toString('hex'),
       "card_nonce": requestBody.nonce,
-      "amount_money": {
-        ...order.order.total_money,
-      },
+      "amount_money": {...order.order.total_money,},
       "order_id": order.order.id
     };
     const transaction = await transactionsApi.charge(locationId, chargeBody);
@@ -97,7 +98,7 @@ app.post('/chargeForCookie', async (request, response) => {
           break;
         default:
           response.status(400).send({
-              errorMessage: errors[0].code+"Payment error. Please contact support if issue persists."
+              errorMessage: res +"Payment error. Please contact support if issue persists."
           })
           break;
     }
